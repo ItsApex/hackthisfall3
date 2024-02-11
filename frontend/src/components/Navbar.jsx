@@ -199,7 +199,7 @@ function Navbar({ verification }) {
           }`}
         >
           <p className="font-monserrat font-regular ">
-            Please dont waste your time USE US
+            Upgrade Security with US
           </p>
           {/* modal for the details */}
           <Modal

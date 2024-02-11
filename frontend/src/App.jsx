@@ -153,12 +153,11 @@ function App() {
               backdropFilter: "blur(50px)",
             }}
           >
-            <div className="flex flex-row justify-center items-center gap-4 text-center p-4 font-monserrat h-full rounded-3xl">
+            <div className="flex flex-col justify-center items-center gap-4 text-center p-4 font-monserrat h-full rounded-3xl">
               {output && (
                 <>
                   <p> {prompt} </p>
                   <p>
-                    {" "}
                     Here is your video and you saved around Bangalor traffic
                     time
                   </p>

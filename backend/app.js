@@ -95,25 +95,25 @@ app.post("/api/modelRUN", async (req, res) => {
 app.post("/submit-details", async (req, res) => {
   const { name, email, number } = req.body;
 
-  try {
+  // try {
     // Send OTP
-    vonage.verify
-      .start({
-        number: "917276079913",
-        brand: "YourApp",
-      })
-      .then((resp) => {
-        console.log("Request ID:", resp.request_id);
-        res.json({ requestId: resp.request_id });
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-        res.status(500).json({ error: err.message });
-      });
-  } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ error: err.message });
-  }
+  //   vonage.verify
+  //     .start({
+  //       number: "917276079913",
+  //       brand: "YourApp",
+  //     })
+  //     .then((resp) => {
+  //       console.log("Request ID:", resp.request_id);
+  //       res.json({ requestId: resp.request_id });
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error:", err);
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // } catch (err) {
+  //   console.error("Error:", err);
+  //   res.status(500).json({ error: err.message });
+  // }
 
   console.log("Received user details:", { name, email, number });
 });
