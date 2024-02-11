@@ -115,12 +115,12 @@ function Navbar({ verification }) {
 
       // submit-details
 
-      // const response = await axios.post(
-      //   "http://localhost:3000/submit-details",
-      //   details
-      // );
+      const response = await axios.post(
+        "http://localhost:3000/submit-details",
+        details
+      );
 
-      // console.log("Response from backend:", response.data);
+      console.log("Response from backend:", response.data);
       setRequest("yes");
       // console.log("setted requestId is ", requjestId);
 

@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const app = express();
 const { Vonage } = require("@vonage/server-sdk");
-const { exec } = require('child_process');
+const { exec } = require("child_process");
 
 app.use(cors());
 app.use(express.json());
@@ -47,39 +47,50 @@ app.post("/api/saveVideo", upload.single("video"), (req, res) => {
       return res.status(500).send("Error occurred while saving the file.");
     }
 
-    res.json("File Saved")
+    res.json("File Saved");
   });
 });
 
-app.post("/api/modelRUN" , async (req,res) =>{
-  
-  const pythonScriptPath = path.join(__dirname, '..', 'python', 'loadmodel.py');
+app.post("/api/modelRUN", async (req, res) => {
+  const pythonScriptPath = path.join(__dirname, "..", "python", "loadmodel.py");
 
   // Execute the first Python script
   exec(`python ${pythonScriptPath}`, (error, stdout, stderr) => {
     if (error) {
-        console.error('Error executing loadmodel.py:', error);
-        return res.status(500).json({ error: 'Internal server error while executing loadmodel.py' });
+      console.error("Error executing loadmodel.py:", error);
+      return res
+        .status(500)
+        .json({ error: "Internal server error while executing loadmodel.py" });
     }
 
-    console.log('loadmodel.py output:', stdout);
+    console.log("loadmodel.py output:", stdout);
     // Send the response to the client after executing the first Python script
 
     // If the first script executed successfully, execute the second Python script
-    const anotherpythonScript = path.join(__dirname, '..', 'python', 'createvideo.py');
+    const anotherpythonScript = path.join(
+      __dirname,
+      "..",
+      "python",
+      "createvideo.py"
+    );
     exec(`python ${anotherpythonScript}`, (error, stdout, stderr) => {
       if (error) {
-          console.error('Error executing createvideo.py:', error);
-          return res.status(500).json({ error: 'Internal server error while executing createvideo.py' });
+        console.error("Error executing createvideo.py:", error);
+        return res.status(500).json({
+          error: "Internal server error while executing createvideo.py",
+        });
       }
 
-      console.log('createvideo.py output:', stdout);
+      console.log("createvideo.py output:", stdout);
       // Send the response to the client after executing the second Python script
-      res.json({ output: stdout });
+      res.send({ message: "Finally Done" });
     });
   });
-} )
 
+  // setTimeout(() => {
+  //   res.send({ message: "this is just for testing will be commented soon" });
+  // }, 3000);
+});
 
 app.post("/submit-details", async (req, res) => {
   const { name, email, number } = req.body;
