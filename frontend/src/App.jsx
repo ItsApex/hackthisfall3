@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import myVideo from "../../Videos/output.mp4";
 
 const style = {
   position: "absolute",
@@ -28,8 +29,13 @@ function App() {
   const [file, setFile] = useState(null);
   const [prompt, setPrompt] = useState("");
   const [videoUrl, setVideoUrl] = useState(null);
+
+  // display states
   const [video, setVideo] = useState(null);
   const [isVerified, setVerified] = useState(false);
+  const [modelVid, setModelVid] = useState(false);
+  // output
+  const [output, setOutput] = useState(false);
   // states for the modal
   const [open, setOpen] = React.useState(false);
   const [otp, setOtp] = useState();
@@ -65,6 +71,7 @@ function App() {
 
   const sendtomodel = async () => {
     try {
+      setModelVid(true);
       console.log(prompt);
       const response = await axios.post(
         "http://localhost:3000/api/modelRUN",
@@ -72,6 +79,10 @@ function App() {
         {}
       );
       console.log("Model run successful", response.data);
+
+      // output
+      setOutput(true);
+      // setVideo(false);
     } catch (error) {
       console.error("Error running model", error);
     }
@@ -82,7 +93,7 @@ function App() {
     const videoObjectURL = URL.createObjectURL(file);
     setVideo(videoObjectURL);
     try {
-      setLoading(true);
+      // setLoading(true);
       const formData = new FormData();
       formData.append("video", file);
 
@@ -124,7 +135,7 @@ function App() {
       <div className="h-full flex justify-center items-center">
         <div className="w-11/12 relative h-5/6 flex flex-row justify-between items-center border-none rounded-3xl bg-[#e1f6f947]  realtive">
           {/* Div to cover the whole area */}
-          {/* {!isVerified && (
+          {!isVerified && (
             <div
               className="font-monserrat  absolute left-15 w-full   isolate aspect-video     h-[110%]   bg-[#DBE0FA] bg-opacity-20 z-10  text-black text-5xl  flex flex-col justify-center items-center  rounded-3xl  "
               onClick={() => console.log("Covering Div Clicked")}
@@ -132,7 +143,7 @@ function App() {
             >
               Authenticate Yourself to use VigilAI
             </div>
-          )} */}
+          )}
           <div
             className="w-1/2 flex flex-col justify-center items-center h-full rounded-3xl"
             style={{
@@ -143,7 +154,25 @@ function App() {
             }}
           >
             <div className="flex flex-row justify-center items-center gap-4 text-center p-4 font-monserrat h-full rounded-3xl">
-              {video ? (
+              {output && (
+                <>
+                  <p> {prompt} </p>
+                  <p>
+                    {" "}
+                    Here is your video and you saved around Bangalor traffic
+                    time
+                  </p>
+                </>
+              )}
+
+              {modelVid && !output && (
+                <div>
+                  <CircularProgress />
+                  <p>Wasting Your valuable time</p>
+                </div>
+              )}
+
+              {video && !modelVid && (
                 <div className="flex flex-row justify-center items-center gap-3">
                   <TextField
                     id="outlined-basic"
@@ -160,8 +189,9 @@ function App() {
                     Submit
                   </button>
                 </div>
-              ) : (
-                <p className=" font-monserrat font-regular w-[85%] ">
+              )}
+              {!video && (
+                <p className=" font-monserrat font-regular ">
                   Please begin by uploading your video prior to initiating the
                   prompt detection process within the content.
                 </p>
@@ -169,18 +199,37 @@ function App() {
             </div>
           </div>
           <div className="w-1/2 flex flex-col bg-gradient-to-br from-customBlue to-blue-900 rounded-3xl h-full justify-center items-center">
+            {output && (
+              // <>
+              //   <p> output Video dal yaha pe</p>
+              // </>
+              <div className="h-full flex flex-row justify-center items-center">
+                <video controls width="400" style={{ height: "300px" }}>
+                  <source src={myVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
             {loading ? (
               <CircularProgress />
             ) : (
               <div className="flex flex-col justify-center items-center gap-2">
-                {video ? (
+                {modelVid && !output && (
+                  <div>
+                    <p>Your expected video will be in a bit</p>
+                  </div>
+                )}
+
+                {video && !modelVid && (
                   <div className="h-full">
                     <video controls width="400" style={{ height: "300px" }}>
                       <source src={video} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
-                ) : (
+                )}
+
+                {!video && (
                   <div className="flex flex-col justify-center items-center gap-2">
                     <div
                       className="h-32 w-72 bg-gray-300 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-65 text-center flex flex-col justify-center items-center cursor-pointer hover:bg-opacity-50 transition duration-300"

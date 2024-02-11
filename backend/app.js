@@ -76,18 +76,31 @@ app.post("/api/modelRUN", async (req, res) => {
     exec(`python ${anotherpythonScript}`, (error, stdout, stderr) => {
       if (error) {
         console.error("Error executing createvideo.py:", error);
+<<<<<<< HEAD
         return res
           .status(500)
           .json({
             error: "Internal server error while executing createvideo.py",
           });
+=======
+        return res.status(500).json({
+          error: "Internal server error while executing createvideo.py",
+        });
+>>>>>>> 161a7f3019d660844bc1421dced89b023d52363b
       }
 
       console.log("createvideo.py output:", stdout);
       // Send the response to the client after executing the second Python script
-      res.json({ output: stdout });
+      res.send({ message: "Finally Done" });
     });
   });
+<<<<<<< HEAD
+=======
+
+  // setTimeout(() => {
+  //   res.send({ message: "this is just for testing will be commented soon" });
+  // }, 3000);
+>>>>>>> 161a7f3019d660844bc1421dced89b023d52363b
 });
 
 app.post("/submit-details", async (req, res) => {
