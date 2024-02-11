@@ -13,6 +13,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
+  borderRadius: "20px",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -144,7 +145,8 @@ function Navbar({ verification }) {
         // background: "rgb(225,246,249)",
         // background:
         //   "linear-gradient(133deg, rgba(225,246,249,1) 4%, rgba(81,156,233,1) 100%)",
-        background: "#E1F6F9",
+        backdropFilter: "blur(50px)",
+        background: "#FFFFFF48",
         color: "black",
       }}
     >
@@ -159,7 +161,8 @@ function Navbar({ verification }) {
           <button
             onClick={handleOpen}
             type="button"
-            className="text-white bg-[#516AE9] h-6 font-Montserrat hover:bg-indigo-100 hover:text-black transition-all duration-300 font-thin rounded-full font-monserrat text-white lg:text-base sm:text-sm text-xs lg:px-6 px-5 lg:h-12 lg:py-1 py-0 text-center mr-3 md:mr-0"
+            disabled={authenticate ? true : false}
+            className=" bg-[#516AE9] h-6 font-Montserrat hover:bg-indigo-100 hover:text-black hover:font-semibold transition-all duration-300 font-thin rounded-full font-monserrat text-white lg:text-base sm:text-sm text-xs lg:px-6 px-5 lg:h-12 lg:py-1 py-0 text-center mr-3 md:mr-0"
           >
             {authenticate ? <>Authenticated</> : <>Authenticate</>}
           </button>
@@ -196,11 +199,14 @@ function Navbar({ verification }) {
           }`}
         >
           <p className="font-monserrat font-regular ">
-            Simplified Verison For You
+            Please dont waste your time USE US
           </p>
           {/* modal for the details */}
           <Modal
             open={open}
+            sx={{
+              borderRadius: "30px",
+            }}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -232,7 +238,7 @@ function Navbar({ verification }) {
                   />
 
                   <button
-                    className="bg-[#000000]  p-4 rounded-lg  text-white"
+                    className="bg-[#000000] hover:bg-[#6aa4d3]  transition duration-300 p-4 rounded-lg  text-white"
                     onClick={submitDetail}
                   >
                     Submit

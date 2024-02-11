@@ -114,7 +114,7 @@ function App() {
       </div>
 
       <div className="flex-1 flex flex-row justify-center items-center h-24">
-        <p className="mt-10 text-center  text-2xl  w-4/5">
+        <p className="mt-10 text-center  text-[16 px]  w-4/5">
           A real-time video analysis system that understands natural language
           prompts and highlights relevant sections based on object detection,
           action recognition, and attribute recognition.
@@ -122,23 +122,24 @@ function App() {
       </div>
 
       <div className="h-full flex justify-center items-center">
-        <div className="w-11/12 h-5/6 flex flex-row justify-between items-center border rounded-3xl bg-[#E1F6F9]  realtive">
+        <div className="w-11/12 relative h-5/6 flex flex-row justify-between items-center border-none rounded-3xl bg-[#e1f6f947]  realtive">
           {/* Div to cover the whole area */}
           {/* {!isVerified && (
             <div
-              className="font-monserrat   absolute top-50 left-15 w-11/12   isolate aspect-video     h-[63%]   bg-[#DBE0FA] bg-opacity-70 z-10  text-black text-5xl  flex flex-col justify-center items-center  rounded-3xl  "
+              className="font-monserrat  absolute left-15 w-full   isolate aspect-video     h-[110%]   bg-[#DBE0FA] bg-opacity-20 z-10  text-black text-5xl  flex flex-col justify-center items-center  rounded-3xl  "
               onClick={() => console.log("Covering Div Clicked")}
-              style={{ backdropFilter: "blur(10px)" }}
+              style={{ backdropFilter: "blur(50px)" }}
             >
               Authenticate Yourself to use VigilAI
-            </div> */}
-          {/* )} */}
+            </div>
+          )} */}
           <div
             className="w-1/2 flex flex-col justify-center items-center h-full rounded-3xl"
             style={{
               background: "rgb(122,160,233)",
               backgroundImage:
                 "radial-gradient(circle, rgba(122, 160, 233, 0.5) 0%, rgba(225, 246, 249, 1) 100%)",
+              backdropFilter: "blur(50px)",
             }}
           >
             <div className="flex flex-row justify-center items-center gap-4 text-center p-4 font-monserrat h-full rounded-3xl">
@@ -160,7 +161,7 @@ function App() {
                   </button>
                 </div>
               ) : (
-                <p className=" font-monserrat font-regular ">
+                <p className=" font-monserrat font-regular w-[85%] ">
                   Please begin by uploading your video prior to initiating the
                   prompt detection process within the content.
                 </p>
@@ -182,8 +183,7 @@ function App() {
                 ) : (
                   <div className="flex flex-col justify-center items-center gap-2">
                     <div
-                      className="h-32 w-72  bg-gray-300 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-65 text-center flex flex-col justify-center items-center cursor-pointer"
-                      // onClick={handleUploadButtonClick}
+                      className="h-32 w-72 bg-gray-300 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-65 text-center flex flex-col justify-center items-center cursor-pointer hover:bg-opacity-50 transition duration-300"
                       onClick={handleUploadButtonClick}
                     >
                       <UploadIcon fontSize="large" />
@@ -198,7 +198,7 @@ function App() {
                     />
 
                     <button
-                      className="h-20 w-72 rounded-full bg-gray-300 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-65 text-center flex flex-row justify-center items-center  "
+                      className="h-20 w-72 rounded-full bg-gray-300 bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-65 text-center flex flex-row justify-center items-center hover:bg-opacity-50 transition duration-300"
                       disabled={!isVerified}
                     >
                       Upload
@@ -220,6 +220,9 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
+      <div className=" py-4 w-[100%] font-monserrat flex justify-center items-center">
+        Privacy Policy | Terms of Service | Contact Us | About Us
       </div>
     </div>
   );
