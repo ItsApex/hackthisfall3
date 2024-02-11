@@ -111,6 +111,8 @@ function Navbar({ verification }) {
   };
 
   const submitDetail = async () => {
+    setRequest("yes");
+
     try {
       console.log(details);
 
